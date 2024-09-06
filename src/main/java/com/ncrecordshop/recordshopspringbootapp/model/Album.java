@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @Table(name="Records")
 
-public class Record {
+public class Album {
 
     @Id
     @GeneratedValue
