@@ -54,4 +54,10 @@ public class RecordManagerServiceTests {
     }
 
 
+    @Test
+    @DisplayName("GET /albums/{id}")
+    void testGetAlbumById() throws Exception {
+
+
+    }
 }

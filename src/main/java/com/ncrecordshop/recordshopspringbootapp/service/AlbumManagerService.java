@@ -8,4 +8,5 @@ import java.util.List;
 public interface AlbumManagerService {
 
     List<Album> getAllAlbums();
+    Album getAlbumById(Long id);
 }
