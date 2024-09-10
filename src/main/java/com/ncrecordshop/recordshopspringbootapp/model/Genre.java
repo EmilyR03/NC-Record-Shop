@@ -7,9 +7,11 @@ public enum Genre {
         Jazz ("Jazz"),
         HipHop ("HipHop");
 
-        // public final String description;
+        public final String description;
 
-        Genre(String description){}
+        Genre(String description){
+            this.description = description;
+        }
     }
 
 

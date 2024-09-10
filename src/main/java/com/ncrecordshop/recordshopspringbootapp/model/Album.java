@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name="Records")
+@Table(name="Album")
 
 public class Album {
 
@@ -27,9 +27,11 @@ public class Album {
     String album;
 
     @Column
-    int releaseDate;
+    int releaseYear;
 
     @Column
     Genre genre;
+
+
 
 }
