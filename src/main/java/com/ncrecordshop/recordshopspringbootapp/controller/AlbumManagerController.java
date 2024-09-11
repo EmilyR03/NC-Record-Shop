@@ -28,7 +28,7 @@ public class AlbumManagerController {
 
     @GetMapping("/{id}")
     public ResponseEntity<Album> getAlbumById(@PathVariable Long id) {
-        Album album = albumManagerService.getAlbumById(id);
+        Album album;
         try {
             album= albumManagerService.getAlbumById(id);
         } catch (HttpServerErrorException e) {
@@ -42,10 +42,14 @@ public class AlbumManagerController {
     public ResponseEntity<Album> addAlbum(@RequestBody Album album) {
         Album newAlbum = albumManagerService.addAlbum(album);
         return new ResponseEntity<>(newAlbum, HttpStatus.CREATED);
-//        Album newAlbum = albumManagerService.insertAlbum(album);
-//        HttpHeaders httpHeaders = new HttpHeaders();
-//        httpHeaders.add("album", "/api/v1/album/" + newAlbum.getId().toString());
-//        return new ResponseEntity<>(newAlbum, httpHeaders, HttpStatus.CREATED);
     }
+
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Album> updateAlbumById (@PathVariable Long id, @RequestBody Album updatedAlbum) {
+        Album updated = albumManagerService.updateAlbumById(id, updatedAlbum);
+        return new ResponseEntity<>(updated, HttpStatus.OK);
+    }
+
 
 }

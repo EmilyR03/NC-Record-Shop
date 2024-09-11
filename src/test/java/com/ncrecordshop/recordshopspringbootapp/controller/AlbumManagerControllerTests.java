@@ -124,8 +124,24 @@ public class AlbumManagerControllerTests {
 //                        .andExpect(MockMvcResultMatchers.status().isCreated());
 //
 //                verify(mockAlbumManagerServiceImpl, times(1).createAlbum(album));
+    }
 
+    @Test
+    @DisplayName("update Album by ID")
+    public void testUpdateAlbumById () throws Exception {
+        Long id = 1L;
+        Album currentAlbum = new Album(1L, "Fall Out Boy", "From under the cork tree", 2005, Genre.ROCK);
+        Album update = new Album (1L, "Fall Out Boy", "From under the cork tree and the fields around it", 2005, Genre.Jazz);
+        when(mockAlbumManagerServiceImpl.getAlbumById(id)).thenReturn(currentAlbum);
+        when(mockAlbumManagerServiceImpl.updateAlbumById(id, update)).thenReturn(update);
 
+        ResponseEntity<Album> response = albumManagerController.updateAlbumById(id, update);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(update, response.getBody());
+
+        assertEquals("From under the cork tree and the fields around it", response.getBody().getAlbum());
+        assertEquals(Genre.Jazz, response.getBody().getGenre());
     }
 
 }
