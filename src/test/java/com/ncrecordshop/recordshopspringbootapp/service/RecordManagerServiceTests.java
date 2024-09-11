@@ -16,8 +16,10 @@ import org.springframework.test.context.ContextConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
 
@@ -33,7 +35,7 @@ public class RecordManagerServiceTests {
 
 
     @Test
-    @DisplayName("Test to get all albums")
+    @DisplayName("GET /albums/allalbums")
     public void testGetAllAlbumsReturnsListOfAlbums() {
 
         //Arrange
@@ -57,7 +59,15 @@ public class RecordManagerServiceTests {
     @Test
     @DisplayName("GET /albums/{id}")
     void testGetAlbumById() throws Exception {
+        //Arrange
+        Album expectedResult = new Album(3L, "Eminem", "Encore", 2004, Genre.HipHop);
 
+        //Act
+        when(mockAlbumManagerRepository.findById(expectedResult.getId())).thenReturn(Optional.of(expectedResult));
 
+        //Assert
+        Album actualResult = albumManagerServiceImpl.getAlbumById(expectedResult.getId());
+        assertEquals(actualResult, expectedResult);
     }
+
 }

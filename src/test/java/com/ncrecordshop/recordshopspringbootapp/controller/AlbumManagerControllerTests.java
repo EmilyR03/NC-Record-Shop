@@ -12,15 +12,21 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
+import javax.print.attribute.standard.Media;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.*;
 
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -87,9 +93,39 @@ public class AlbumManagerControllerTests {
     @Test
     @DisplayName("get album by id")
     public void testGetAlbumById() throws  Exception {
+        Long albumID = 1L;
+        List<Album> albums = populateAlbums();
+        Album album = albums.stream()
+                .filter(a -> a.getId().equals(albumID)).findFirst().orElse(null);
+
+        when(mockAlbumManagerServiceImpl.getAlbumById(albumID)).thenReturn(album);
+
+        this.mockMvcController.perform(
+                MockMvcRequestBuilders.get("/api/v1/album/{id}", albumID))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(albumID));
+    }
+
+    @Test
+    @DisplayName("add new album")
+    public void testAddAlbum() throws Exception {
+        Album album = new Album(8L,"Pink Floyd", "The Wall", 1979, Genre.ROCK);
+        when(mockAlbumManagerServiceImpl.addAlbum(album)).thenReturn(album);
+        ResponseEntity<Album> response = albumManagerController.addAlbum(album);
+        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+        assertEquals(album, response.getBody());
+
+//        when(mockAlbumManagerServiceImpl.createAlbum(album)).thenReturn(album);
+//
+//        this.mockMvcController.perform(
+//                MockMvcRequestBuilders.post("/api/v1/album/")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(mapper.writeValueAsString(album))
+//                        .andExpect(MockMvcResultMatchers.status().isCreated());
+//
+//                verify(mockAlbumManagerServiceImpl, times(1).createAlbum(album));
 
 
     }
-
 
 }

@@ -9,4 +9,5 @@ public interface AlbumManagerService {
 
     List<Album> getAllAlbums();
     Album getAlbumById(Long id);
+    Album addAlbum(Album album);
 }
