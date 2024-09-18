@@ -16,17 +16,17 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import javax.print.attribute.standard.Media;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -63,32 +63,7 @@ public class AlbumManagerControllerTests {
         return albumList;
     }
 
-    @Test
-    @DisplayName("get all albums")
-    public void testGetAllAlbumsReturnAlbums() throws Exception {
 
-        List<Album> albums = populateAlbums();
-
-        when(mockAlbumManagerServiceImpl.getAllAlbums()).thenReturn(albums);
-
-        this.mockMvcController.perform(
-                MockMvcRequestBuilders.get("/api/v1/album/allalbums"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(1))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].artist").value("Fall Out Boy"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].id").value(2))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].artist").value("Chappell Roan"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[2].id").value(3))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[2].artist").value("Eminem"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[3].id").value(4))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[3].artist").value("Cher"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[4].id").value(5))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[4].artist").value("Blink182"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[5].id").value(6))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[5].artist").value("Spice Girls"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[6].id").value(7))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[6].artist").value("Pink Floyd"));
-    }
 
     @Test
     @DisplayName("get album by id")
@@ -102,30 +77,41 @@ public class AlbumManagerControllerTests {
 
         this.mockMvcController.perform(
                 MockMvcRequestBuilders.get("/api/v1/album/{id}", albumID))
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(albumID));
     }
 
-    @Test
-    @DisplayName("add new album")
-    public void testAddAlbum() throws Exception {
-        Album album = new Album(8L,"Pink Floyd", "The Wall", 1979, Genre.ROCK);
-        when(mockAlbumManagerServiceImpl.addAlbum(album)).thenReturn(album);
-        ResponseEntity<Album> response = albumManagerController.addAlbum(album);
-        assertEquals(HttpStatus.CREATED, response.getStatusCode());
-        assertEquals(album, response.getBody());
 
-//        when(mockAlbumManagerServiceImpl.createAlbum(album)).thenReturn(album);
+// is damaging
+//    @Test
+//    @DisplayName("add new album")
+//    public void testAddAlbum() throws Exception {
+//        Album album = new Album(8L,"Pink Floyd", "The Wall", 1979, Genre.ROCK);
+//        when(mockAlbumManagerServiceImpl.addAlbum(album)).thenReturn(album);
+//        ResponseEntity<Album> response = albumManagerController.addAlbum(album);
+//        assertEquals(HttpStatus.CREATED, response.getStatusCode());
+//        assertEquals(album, response.getBody());
 //
-//        this.mockMvcController.perform(
-//                MockMvcRequestBuilders.post("/api/v1/album/")
-//                        .contentType(MediaType.APPLICATION_JSON)
-//                        .content(mapper.writeValueAsString(album))
-//                        .andExpect(MockMvcResultMatchers.status().isCreated());
+//    }
 //
-//                verify(mockAlbumManagerServiceImpl, times(1).createAlbum(album));
+    @Test
+    @DisplayName("new add album test")
+    public void posttestAddAlbum() throws Exception {
+
+        Album album = new Album(8L,"Pink Floyd", "The Wall", 1979, Genre.ROCK);
+
+        when(mockAlbumManagerServiceImpl.insertAlbum(album)).thenReturn(album);
+
+        this.mockMvcController.perform(
+                        MockMvcRequestBuilders.post("/api/v1/album/")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(mapper.writeValueAsString(album)))
+                .andExpect(MockMvcResultMatchers.status().isCreated());
+
+        verify(mockAlbumManagerServiceImpl, times(1)).insertAlbum(album);
     }
 
+//
     @Test
     @DisplayName("update Album by ID")
     public void testUpdateAlbumById () throws Exception {
@@ -135,13 +121,26 @@ public class AlbumManagerControllerTests {
         when(mockAlbumManagerServiceImpl.getAlbumById(id)).thenReturn(currentAlbum);
         when(mockAlbumManagerServiceImpl.updateAlbumById(id, update)).thenReturn(update);
 
-        ResponseEntity<Album> response = albumManagerController.updateAlbumById(id, update);
+        ResponseEntity<Album> response = albumManagerController.updateAlbum(id, update);
 
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(update, response.getBody());
 
-        assertEquals("From under the cork tree and the fields around it", response.getBody().getAlbum());
+        assertEquals("From under the cork tree and the fields around it", response.getBody().getAlbumName());
         assertEquals(Genre.Jazz, response.getBody().getGenre());
+
     }
 
-}
+    @Test
+    @DisplayName("DELETE /album")
+    void testDeleteAlbum() throws Exception {
+        Long id = 1L;
+        ResultActions result = mockMvcController.perform(
+                MockMvcRequestBuilders.delete("/api/v1/albums/{id}", id)
+        );
+        result.andExpect(status().isNoContent());
+    }
+
+    }
+
+

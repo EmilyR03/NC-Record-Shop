@@ -20,7 +20,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 @DataJpaTest
@@ -69,5 +69,8 @@ public class RecordManagerServiceTests {
         Album actualResult = albumManagerServiceImpl.getAlbumById(expectedResult.getId());
         assertEquals(actualResult, expectedResult);
     }
+
+
+
 
 }

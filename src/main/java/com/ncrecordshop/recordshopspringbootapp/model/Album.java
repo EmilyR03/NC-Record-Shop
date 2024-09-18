@@ -24,14 +24,15 @@ public class Album {
     String artist;
 
     @Column
-    String album;
+    String albumName;
 
     @Column
+            //date format to that
     int releaseYear;
 
     @Column
+    @Enumerated(EnumType.STRING)
     Genre genre;
-
 
 
 }

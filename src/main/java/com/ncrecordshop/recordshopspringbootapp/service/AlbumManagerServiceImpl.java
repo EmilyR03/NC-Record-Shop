@@ -3,10 +3,7 @@ package com.ncrecordshop.recordshopspringbootapp.service;
 import com.ncrecordshop.recordshopspringbootapp.model.Album;
 import com.ncrecordshop.recordshopspringbootapp.repository.AlbumManagerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +23,7 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
 
     @Override
     public Album getAlbumById(Long id) {
-        return albumManagerRepository.findById(id).get();
+        return albumManagerRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -35,17 +32,41 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
     }
 
     @Override
+    public Album insertAlbum(Album album) {
+        return albumManagerRepository.save(album);
+    }
+
+    @Override
     public Album updateAlbumById(Long id, Album updatedAlbum) {
         Album currentAlbum = getAlbumById(id);
 
+        if (currentAlbum != null) {
         currentAlbum.setArtist(updatedAlbum.getArtist());
-        currentAlbum.setAlbum(updatedAlbum.getAlbum());
+        currentAlbum.setAlbumName(updatedAlbum.getAlbumName());
         currentAlbum.setReleaseYear(updatedAlbum.getReleaseYear());
         currentAlbum.setGenre(updatedAlbum.getGenre());
 
-        return albumManagerRepository.save(currentAlbum);
+        return albumManagerRepository.save(currentAlbum);}
+        else {
+            throw new RuntimeException();
+        }
 
     }
 
+//           if (currentAlbum != null) {
+//        currentAlbum.setArtist(updatedAlbum.getArtist());
+//        currentAlbum.setAlbumName(updatedAlbum.getAlbumName());
+//        currentAlbum.setReleaseYear(updatedAlbum.getReleaseYear());
+//        currentAlbum.setGenre(updatedAlbum.getGenre());
+//        return albumManagerRepository.save(currentAlbum);
+//    } else {
+//        // Handle the case where the album doesn't exist
+//        throw new AlbumNotFoundException("Album not found with ID " + id);
+//    }
+
+    @Override
+    public void deleteAlbumById(Long id) {
+        albumManagerRepository.deleteAlbumById(id);
+    }
 
 }
