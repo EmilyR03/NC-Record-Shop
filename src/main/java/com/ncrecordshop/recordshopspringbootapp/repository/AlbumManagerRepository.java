@@ -10,6 +10,10 @@ import java.util.List;
 public interface AlbumManagerRepository extends CrudRepository<Album, Long> {
 
 
+    Album findAlbumById(Long albumId);
+
+
+
   //  void deleteAlbumById(Long id);
 
   //  List<Album> findByArtistNameContainingIgnoreCase(String name);
