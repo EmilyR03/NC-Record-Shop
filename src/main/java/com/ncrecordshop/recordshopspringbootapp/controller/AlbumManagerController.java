@@ -32,7 +32,6 @@ public class AlbumManagerController {
         return new ResponseEntity<>(album, HttpStatus.OK);
     }
 
-
     @PostMapping
     public ResponseEntity<Album> addAlbum(@RequestBody Album album) {
         Album newAlbum = albumManagerService.insertAlbum(album);
@@ -41,19 +40,31 @@ public class AlbumManagerController {
         return new ResponseEntity<>(newAlbum, httpHeaders, HttpStatus.CREATED);
     }
 
-
     @PutMapping("{id}")
     public ResponseEntity<Album> updateAlbum(@PathVariable Long id, @RequestBody Album updatedAlbum) {
         Album updated = albumManagerService.updateAlbumById(id, updatedAlbum);
         return new ResponseEntity<>(updated, HttpStatus.OK);
     }
 
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Album> deleteAlbumById(@PathVariable Long id){
+    @DeleteMapping("{id}")
+    public ResponseEntity<Album> deleteAlbumById(@PathVariable Long id) {
         albumManagerService.deleteAlbumById(id);
-        return ResponseEntity.noContent().build();
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-
 }
+
+//    @GetMapping("/artist")
+//    public ResponseEntity<List<Album>> getAlbumsByArtist(@RequestParam(value = "name") String name) {
+//        List<Album> album = albumManagerService.findByArtistNameContainingIgnoreCase(name);
+//        return new ResponseEntity<>(album, HttpStatus.OK);
+//        }
+
+
+//
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<Album> deleteAlbumById(@PathVariable Long id){
+//        albumManagerService.deleteAlbumById(id);
+//        return ResponseEntity.noContent().build();
+//    }
+

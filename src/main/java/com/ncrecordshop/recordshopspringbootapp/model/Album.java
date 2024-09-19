@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class Album {
 
     @Id
-    @GeneratedValue
+   @GeneratedValue//(strategy = GenerationType.AUTO)
     @Column(updatable = false, nullable = false)
     Long id;
 

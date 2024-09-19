@@ -14,4 +14,9 @@ public interface AlbumManagerService {
     Album insertAlbum(Album album);
     void deleteAlbumById(Long id);
 
+
+    //void deleteAlbumById(Long id);
+    //  void deleteAlbum(Long id);
+
+    //  List<Album> findByArtistNameContainingIgnoreCase(String name);
 }

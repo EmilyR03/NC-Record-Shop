@@ -16,7 +16,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -30,6 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @AutoConfigureMockMvc
 @SpringBootTest
+
 
 public class AlbumManagerControllerTests {
 
@@ -50,7 +50,7 @@ public class AlbumManagerControllerTests {
         mapper = new ObjectMapper();
     }
 
-    public List<Album> populateAlbums(){
+    public List<Album> populateAlbums() {
         List<Album> albumList = new ArrayList<>();
         albumList.add(new Album(1L, "Fall Out Boy", "From under the cork tree", 2005, Genre.ROCK));
         albumList.add(new Album(2L, "Chappell Roan", "The Rise and Fall of the Midwest Princess", 2023, Genre.POP));
@@ -63,11 +63,32 @@ public class AlbumManagerControllerTests {
         return albumList;
     }
 
+    @Test
+    @DisplayName("get all albums")
+    public void testGetAllAlbumsReturnAlbums() throws Exception {
 
+        List<Album> albums = new ArrayList<>();
+        albums.add(new Album(1L, "Fall Out Boy", "From under the cork tree", 2005, Genre.ROCK));
+        albums.add(new Album(2L, "Chappell Roan", "The Rise and Fall of the Midwest Princess", 2023, Genre.POP));
+        albums.add(new Album(3L, "Eminem", "Encore", 2004, Genre.HipHop));
+
+        when(mockAlbumManagerServiceImpl.getAllAlbums()).thenReturn(albums);
+
+        this.mockMvcController.perform(
+                        MockMvcRequestBuilders.get("/api/v1/album/allalbums"))
+                .andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].id").value(1))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[0].artist").value("Fall Out Boy"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].id").value(2))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].artist").value("Chappell Roan"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[2].id").value(3))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[2].artist").value("Eminem"));
+
+    }
 
     @Test
     @DisplayName("get album by id")
-    public void testGetAlbumById() throws  Exception {
+    public void testGetAlbumById() throws Exception {
         Long albumID = 1L;
         List<Album> albums = populateAlbums();
         Album album = albums.stream()
@@ -76,29 +97,16 @@ public class AlbumManagerControllerTests {
         when(mockAlbumManagerServiceImpl.getAlbumById(albumID)).thenReturn(album);
 
         this.mockMvcController.perform(
-                MockMvcRequestBuilders.get("/api/v1/album/{id}", albumID))
+                        MockMvcRequestBuilders.get("/api/v1/album/{id}", albumID))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(albumID));
     }
 
-
-// is damaging
-//    @Test
-//    @DisplayName("add new album")
-//    public void testAddAlbum() throws Exception {
-//        Album album = new Album(8L,"Pink Floyd", "The Wall", 1979, Genre.ROCK);
-//        when(mockAlbumManagerServiceImpl.addAlbum(album)).thenReturn(album);
-//        ResponseEntity<Album> response = albumManagerController.addAlbum(album);
-//        assertEquals(HttpStatus.CREATED, response.getStatusCode());
-//        assertEquals(album, response.getBody());
-//
-//    }
-//
     @Test
     @DisplayName("new add album test")
-    public void posttestAddAlbum() throws Exception {
+    public void postTestAddAlbum() throws Exception {
 
-        Album album = new Album(8L,"Pink Floyd", "The Wall", 1979, Genre.ROCK);
+        Album album = new Album(8L, "Pink Floyd", "The Wall", 1979, Genre.ROCK);
 
         when(mockAlbumManagerServiceImpl.insertAlbum(album)).thenReturn(album);
 
@@ -109,15 +117,16 @@ public class AlbumManagerControllerTests {
                 .andExpect(MockMvcResultMatchers.status().isCreated());
 
         verify(mockAlbumManagerServiceImpl, times(1)).insertAlbum(album);
+
+
     }
 
-//
     @Test
     @DisplayName("update Album by ID")
-    public void testUpdateAlbumById () throws Exception {
+    public void testUpdateAlbumById() throws Exception {
         Long id = 1L;
         Album currentAlbum = new Album(1L, "Fall Out Boy", "From under the cork tree", 2005, Genre.ROCK);
-        Album update = new Album (1L, "Fall Out Boy", "From under the cork tree and the fields around it", 2005, Genre.Jazz);
+        Album update = new Album(1L, "Fall Out Boy", "From under the cork tree and the fields around it", 2005, Genre.Jazz);
         when(mockAlbumManagerServiceImpl.getAlbumById(id)).thenReturn(currentAlbum);
         when(mockAlbumManagerServiceImpl.updateAlbumById(id, update)).thenReturn(update);
 
@@ -132,15 +141,72 @@ public class AlbumManagerControllerTests {
     }
 
     @Test
-    @DisplayName("DELETE /album")
-    void testDeleteAlbum() throws Exception {
+    public void testDeleteMappingDeletesAnAlbum() throws Exception {
         Long id = 1L;
-        ResultActions result = mockMvcController.perform(
-                MockMvcRequestBuilders.delete("/api/v1/albums/{id}", id)
-        );
-        result.andExpect(status().isNoContent());
+
+        doNothing().when(mockAlbumManagerServiceImpl).deleteAlbumById(id);
+
+        this.mockMvcController.perform(
+                        MockMvcRequestBuilders.delete("/api/v1/album/1")
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
     }
 
-    }
+}
+
+//
+//    //________________________DELETE ALBUM_____________________________
+//    @Test
+//    @DisplayName("DELETE /album")
+//    void testDeleteAlbum() throws Exception {
+//        Long id = 1L;
+//        ResultActions result = mockMvcController.perform(
+//                MockMvcRequestBuilders.delete("/api/v1/albums/{id}", id)
+//        );
+//        result.andExpect(status().isNoContent());
+//    }
+//
+////
+////    @Test
+////    @DisplayName("GET /albums/artist?name={name}")
+////    void testGetAllAlbumsByArtist() throws Exception {
+////
+////        String name = "Fall Out Boy";
+////        List<Album> albums = populateAlbums();
+////
+////        List<Album> expected = List.of(
+////                new Album(1L, "Fall Out Boy", "From under the cork tree", 2005, Genre.ROCK));
+////
+////        when(mockAlbumManagerServiceImpl.findByArtistNameContainingIgnoreCase(name)).thenReturn(expected);
+////
+////        this.mockMvcController.perform(MockMvcRequestBuilders.get("/api/v1/albums/artist?name={name}", name)
+////                        .contentType(MediaType.APPLICATION_JSON))
+////                .andExpect(status().isOk())
+////                .andExpect(MockMvcResultMatchers.content().json(mapper.writeValueAsString(expected)));
+////    }
+//
+//
+//    @Test
+//    @DisplayName("GET /albums/artist?name={name}")
+//    void testGetAllAlbumsByArtist() throws Exception {
+//
+//        String name = "Fall Out Boy";
+//        Artist fallOutBoy = Artist.builder().artistId(1L).name("Fall Out Boy").build();
+//
+//        List<Album> expected = List.of(
+//                new Album(1L, "Fall Out Boy", "From under the cork tree", 2005, Genre.ROCK));
+//
+//        when(mockAlbumManagerServiceImpl.findByArtistNameContainingIgnoreCase(name)).thenReturn(expected);
+//
+//
+//        this.mockMvcController.perform(MockMvcRequestBuilders.get("/api/v1/albums/artist?name={name}", name)
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .content(mapper.writeValueAsString(expected)))
+//                .andExpect(status().isOk());
+//    }
+
+
+
+
 
 

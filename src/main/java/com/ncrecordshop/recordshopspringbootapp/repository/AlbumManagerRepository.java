@@ -4,9 +4,14 @@ import com.ncrecordshop.recordshopspringbootapp.model.Album;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface AlbumManagerRepository extends CrudRepository<Album, Long> {
 
 
-    void deleteAlbumById(Long id);
+  //  void deleteAlbumById(Long id);
+
+  //  List<Album> findByArtistNameContainingIgnoreCase(String name);
+
 }
