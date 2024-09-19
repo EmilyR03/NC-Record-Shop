@@ -16,11 +16,12 @@ import lombok.NoArgsConstructor;
 public class Album {
 
     @Id
-   @GeneratedValue//(strategy = GenerationType.AUTO)
+    @GeneratedValue//(strategy = GenerationType.AUTO)
     @Column(updatable = false, nullable = false)
     Long id;
 
-    @Column
+    @ManyToOne()
+    @JoinColumn(name = "artist_id")
     String artist;
 
     @Column
@@ -33,6 +34,5 @@ public class Album {
     @Column
     @Enumerated(EnumType.STRING)
     Genre genre;
-
 
 }

@@ -19,8 +19,8 @@ public class Artist {
 
     @Id
     @GeneratedValue
-    @Column(updatable = false, nullable = false)
-    Long id;
+    @Column(updatable = false, name = "artistId")
+    Long artistId;
 
     @Column
     String artistName;
