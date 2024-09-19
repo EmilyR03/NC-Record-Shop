@@ -83,14 +83,8 @@ public class RecordManagerServiceTests {
     }
 
 
-//    @Test
-//    @DisplayName("DELETE /album")
-//    void testDeleteAlbum() {
+
 //
-//        Long id = 1L;
-//        albumManagerServiceImpl.deleteAlbumById(id);
-//        verify(mockAlbumManagerRepository, times(1)).deleteById(id);
-//    }
 //
 //
 
