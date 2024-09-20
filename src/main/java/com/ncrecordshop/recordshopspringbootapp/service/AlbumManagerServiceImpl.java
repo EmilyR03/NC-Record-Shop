@@ -60,6 +60,12 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
     public void deleteAlbumById(Long id) {
         albumManagerRepository.deleteById(id);
     }
+
+    @Override
+    public List<Album> getByQuantityInStock(int quantity) {
+        return albumManagerRepository.findByQuantityInStockGreaterThan(quantity);
+    }
+
 }
 
 //    @Override

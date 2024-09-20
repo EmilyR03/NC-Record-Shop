@@ -15,8 +15,9 @@ public class ArtistManagerServiceImpl implements ArtistManagerService {
 
     @Override
     public List<Artist> getAllArtists() {
-        List<Artist> artists = new ArrayList<>();
-        artistManagerRepository.findAll().forEach(artists::add);
-        return artists;
+        List<Artist> artists = artistManagerRepository.findAll();
+        return artists != null ? artists : new ArrayList<>();
     }
+
+
 }

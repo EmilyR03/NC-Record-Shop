@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertIterableEquals;
 import static org.mockito.Mockito.when;
@@ -50,7 +51,7 @@ public class ArtistManagerControllerTests {
     @DisplayName("GET /artists")
     void testGetAllArtists() throws Exception {
 
-        Artist blink182 = Artist.builder().artistId(1l).artistName("Blink182").build();
+        Artist blink182 = Artist.builder().artistId(1L).artistName("Blink182").build();
         Artist eminem = Artist.builder().artistId(2L).artistName("Eminem").build();
 
         List<Artist> expected = List.of(blink182, eminem);

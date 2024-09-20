@@ -11,7 +11,7 @@ public interface AlbumManagerRepository extends CrudRepository<Album, Long> {
 
 
     Album findAlbumById(Long albumId);
-
+    List<Album> findByQuantityInStockGreaterThan(int quantityInStock);
 
 
   //  void deleteAlbumById(Long id);

@@ -13,7 +13,7 @@ public interface AlbumManagerService {
     Album updateAlbumById(Long id, Album album);
     Album insertAlbum(Album album);
     void deleteAlbumById(Long id);
-
+    List<Album> getByQuantityInStock(int quantity);
 
     //void deleteAlbumById(Long id);
     //  void deleteAlbum(Long id);

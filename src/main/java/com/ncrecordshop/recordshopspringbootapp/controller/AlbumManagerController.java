@@ -13,14 +13,14 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/api/v1/album")
+@RequestMapping("/api/v1/album/")
 
 public class AlbumManagerController {
 
     @Autowired
     AlbumManagerService albumManagerService;
 
-    @GetMapping("/allalbums")
+    @GetMapping("allalbums")
     public ResponseEntity<List<Album>> getAllAlbums() {
         List<Album> albums = albumManagerService.getAllAlbums();
         return new ResponseEntity<>(albums, HttpStatus.OK);
@@ -50,6 +50,13 @@ public class AlbumManagerController {
     public ResponseEntity<Album> deleteAlbumById(@PathVariable Long id) {
         albumManagerService.deleteAlbumById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/in-stock")
+    public ResponseEntity<List<Album>> getAllAlbumsInStock() {
+        List<Album> albums = albumManagerService.getByQuantityInStock(1);
+        return new ResponseEntity<>(albums, HttpStatus.OK);
+
     }
 
 }
