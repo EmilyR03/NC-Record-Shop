@@ -1,6 +1,7 @@
 package com.ncrecordshop.recordshopspringbootapp.service;
 
 import com.ncrecordshop.recordshopspringbootapp.model.Album;
+import com.ncrecordshop.recordshopspringbootapp.model.Genre;
 import com.ncrecordshop.recordshopspringbootapp.repository.AlbumManagerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.crossstore.ChangeSetPersister;
@@ -51,10 +52,10 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
         }
     }
 
-    @Override
-    public Album insertAlbum(Album album) {
-        return albumManagerRepository.save(album);
-    }
+//    @Override
+//    public Album insertAlbum(Album album) {
+//        return albumManagerRepository.save(album);
+//    }
 
     @Override
     public void deleteAlbumById(Long id) {
@@ -62,9 +63,14 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
     }
 
     @Override
-    public List<Album> getByQuantityInStock(int quantity) {
-        return albumManagerRepository.findByQuantityInStockGreaterThan(quantity);
+    public List<Album> getAllAlbumsByGenre(Genre genre){
+       return albumManagerRepository.findAllAlbumsByGenre(genre);
     }
+
+//    @Override
+//    public List<Album> getByQuantityInStock(int quantity) {
+//        return albumManagerRepository.findByQuantityInStockGreaterThan(quantity);
+//    }
 
 }
 

@@ -1,16 +1,15 @@
 package com.ncrecordshop.recordshopspringbootapp.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Getter
+@Setter
 @Table(name="Album")
 
 public class Album {
@@ -20,8 +19,8 @@ public class Album {
     @Column(updatable = false, nullable = false)
     Long id;
 
-    @ManyToOne()
-    @JoinColumn(name = "artist_id")
+   // @ManyToOne()
+    @Column
     String artist;
 
     @Column
@@ -34,5 +33,8 @@ public class Album {
     @Column
     @Enumerated(EnumType.STRING)
     Genre genre;
+
+
+
 
 }

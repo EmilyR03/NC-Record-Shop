@@ -76,14 +76,7 @@ public class AlbumManagerServiceTests {
         verify(mockAlbumManagerRepository, times(1)).deleteById(testId);
     }
 
-
-
-//
-//
-//
-
-//
-//
+    //
 //    @Test
 //    @DisplayName("GET /albums/artist?name=")
 //    void testGetAlbumsByArtist() throws Exception{

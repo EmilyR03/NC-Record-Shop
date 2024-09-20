@@ -13,11 +13,11 @@ public class ArtistManagerServiceImpl implements ArtistManagerService {
     @Autowired
     ArtistManagerRepository artistManagerRepository;
 
-    @Override
-    public List<Artist> getAllArtists() {
-        List<Artist> artists = artistManagerRepository.findAll();
-        return artists != null ? artists : new ArrayList<>();
-    }
+//    @Override
+//    public List<Artist> getAllArtists() {
+//        List<Artist> artists = artistManagerRepository.findAll();
+//        return artists != null ? artists : new ArrayList<>();
+//    }
 
 
 }

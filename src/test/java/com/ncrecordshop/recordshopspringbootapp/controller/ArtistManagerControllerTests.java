@@ -47,25 +47,25 @@ public class ArtistManagerControllerTests {
         mapper = new ObjectMapper();
     }
 
-    @Test
-    @DisplayName("GET /artists")
-    void testGetAllArtists() throws Exception {
-
-        Artist blink182 = Artist.builder().artistId(1L).artistName("Blink182").build();
-        Artist eminem = Artist.builder().artistId(2L).artistName("Eminem").build();
-
-        List<Artist> expected = List.of(blink182, eminem);
-
-        when(mockArtistManagerServiceImpl.getAllArtists()).thenReturn(expected);
-
-        this.mockMvcController.perform(MockMvcRequestBuilders.get("/api/v1/artists"))
-                .andExpect(status().isOk())
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].artistId").value(1))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].artistName").value("Blink182"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].artistId").value(2))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].artistName").value("Eminem"));
-
-    }
+//    @Test
+//    @DisplayName("GET /artists")
+//    void testGetAllArtists() throws Exception {
+//
+//        Artist blink182 = Artist.builder().artistId(1L).artistName("Blink182").build();
+//        Artist eminem = Artist.builder().artistId(2L).artistName("Eminem").build();
+//
+//        List<Artist> expected = List.of(blink182, eminem);
+//
+//        when(mockArtistManagerServiceImpl.getAllArtists()).thenReturn(expected);
+//
+//        this.mockMvcController.perform(MockMvcRequestBuilders.get("/api/v1/artists"))
+//                .andExpect(status().isOk())
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[0].artistId").value(1))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[0].artistName").value("Blink182"))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[1].artistId").value(2))
+//                .andExpect(MockMvcResultMatchers.jsonPath("$[1].artistName").value("Eminem"));
+//
+//    }
 
 
 

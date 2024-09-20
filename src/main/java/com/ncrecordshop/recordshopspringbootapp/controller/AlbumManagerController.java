@@ -1,7 +1,9 @@
 package com.ncrecordshop.recordshopspringbootapp.controller;
 
 import com.ncrecordshop.recordshopspringbootapp.model.Album;
+import com.ncrecordshop.recordshopspringbootapp.model.Genre;
 import com.ncrecordshop.recordshopspringbootapp.service.AlbumManagerService;
+import com.ncrecordshop.recordshopspringbootapp.service.ArtistManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -13,20 +15,23 @@ import java.util.List;
 import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/api/v1/album/")
+@RequestMapping("/api/v1/album")
 
 public class AlbumManagerController {
 
     @Autowired
     AlbumManagerService albumManagerService;
 
-    @GetMapping("allalbums")
+    @Autowired
+    ArtistManagerService artistManagerService;
+
+    @GetMapping("/allalbums")
     public ResponseEntity<List<Album>> getAllAlbums() {
         List<Album> albums = albumManagerService.getAllAlbums();
         return new ResponseEntity<>(albums, HttpStatus.OK);
     }
 
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Album> getAlbumById(@PathVariable Long id) {
         Album album = albumManagerService.getAlbumById(id);
         return new ResponseEntity<>(album, HttpStatus.OK);
@@ -34,30 +39,43 @@ public class AlbumManagerController {
 
     @PostMapping
     public ResponseEntity<Album> addAlbum(@RequestBody Album album) {
-        Album newAlbum = albumManagerService.insertAlbum(album);
+        Album newAlbum = albumManagerService.addAlbum(album);
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("album", "/api/v1/album" + newAlbum.getId().toString());
         return new ResponseEntity<>(newAlbum, httpHeaders, HttpStatus.CREATED);
     }
 
-    @PutMapping("{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<Album> updateAlbum(@PathVariable Long id, @RequestBody Album updatedAlbum) {
         Album updated = albumManagerService.updateAlbumById(id, updatedAlbum);
         return new ResponseEntity<>(updated, HttpStatus.OK);
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Album> deleteAlbumById(@PathVariable Long id) {
         albumManagerService.deleteAlbumById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping("/in-stock")
-    public ResponseEntity<List<Album>> getAllAlbumsInStock() {
-        List<Album> albums = albumManagerService.getByQuantityInStock(1);
+    @GetMapping("/genre/{genre}")
+    public ResponseEntity<List<Album> >getAllAlbumsByGenre(@PathVariable Genre genre) {
+        List<Album> albums = albumManagerService.getAllAlbumsByGenre(genre);
         return new ResponseEntity<>(albums, HttpStatus.OK);
-
     }
+
+
+
+
+
+
+
+
+//    @GetMapping("albumsinstock")
+//    public ResponseEntity<List<Album>> getAllAlbumsInStockInShop() {
+//        List<Album> albums = albumManagerService.getByQuantityInStock(1);
+//        return new ResponseEntity<>(albums, HttpStatus.OK);
+//
+//    }
 
 }
 

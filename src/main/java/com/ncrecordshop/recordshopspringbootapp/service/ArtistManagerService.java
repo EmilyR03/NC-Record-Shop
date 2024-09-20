@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface ArtistManagerService {
 
-    List<Artist> getAllArtists();
+//    List<Artist> getAllArtists();
 }

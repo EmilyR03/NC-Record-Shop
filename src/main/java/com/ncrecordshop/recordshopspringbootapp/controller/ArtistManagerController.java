@@ -25,11 +25,11 @@ public class ArtistManagerController {
 //    list all albums by a given release year
 //    list all albums by a given genre
 //    get album information by album name
-
-    @GetMapping
-    public ResponseEntity<List<Artist>> getAllArtists() {
-        return new ResponseEntity<>(artistManagerService.getAllArtists(), HttpStatus.OK);
-    }
+//
+//    @GetMapping
+//    public ResponseEntity<List<Artist>> getAllArtists() {
+//        return new ResponseEntity<>(artistManagerService.getAllArtists(), HttpStatus.OK);
+//    }
 
 
 }

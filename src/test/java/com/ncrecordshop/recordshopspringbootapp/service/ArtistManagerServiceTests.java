@@ -21,21 +21,21 @@ public class ArtistManagerServiceTests {
     @InjectMocks
     private ArtistManagerServiceImpl artistManagerServiceImpl;
 
-    @Test
-    @DisplayName("GET /artists")
-    void getAllArtists() throws NullPointerException {
-
-        Artist blink182 = Artist.builder().artistId(1L).artistName("Blink182").build();
-        Artist eminem = Artist.builder().artistId(2L).artistName("Eminem").build();
-
-        List<Artist> expected = List.of(blink182, eminem);
-
-        when(mockArtistManagerRepository.getAllArtists()).thenReturn(expected);
-
-        List<Artist> actual = artistManagerServiceImpl.getAllArtists();
-
-        assertIterableEquals(actual, expected);
-    }
+//    @Test
+//    @DisplayName("GET /artists")
+//    void getAllArtists() throws NullPointerException {
+//
+//        Artist blink182 = Artist.builder().artistId(1L).artistName("Blink182").build();
+//        Artist eminem = Artist.builder().artistId(2L).artistName("Eminem").build();
+//
+//        List<Artist> expected = List.of(blink182, eminem);
+//
+//        when(mockArtistManagerRepository.getAllArtists()).thenReturn(expected);
+//
+//        List<Artist> actual = artistManagerServiceImpl.getAllArtists();
+//
+//        assertIterableEquals(actual, expected);
+//    }
 
 
 }
