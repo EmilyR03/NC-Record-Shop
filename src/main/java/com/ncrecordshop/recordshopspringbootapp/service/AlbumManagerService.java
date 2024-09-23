@@ -10,7 +10,7 @@ public interface AlbumManagerService {
     List<Album> getAllAlbums();
     Album getAlbumById(Long id);
     Album addAlbum(Album album);
-    Album updateAlbumById(Long id, Album album);
+    Album updateAlbum(Long id, Album album);
     void deleteAlbumById(Long id);
     List<Album> getByReleaseYear(int year);
     List<Album> getAllAlbumsByGenre(Genre genre);

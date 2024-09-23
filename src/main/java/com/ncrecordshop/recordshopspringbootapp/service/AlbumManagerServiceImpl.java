@@ -35,7 +35,7 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
 
 
     @Override
-    public Album updateAlbumById(Long id, Album updatedAlbum) {
+    public Album updateAlbum(Long id, Album updatedAlbum) {
         Album currentAlbum = getAlbumById(id);
 
         if (currentAlbum != null) {

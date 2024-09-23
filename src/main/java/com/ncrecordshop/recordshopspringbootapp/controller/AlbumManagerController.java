@@ -45,10 +45,12 @@ public class AlbumManagerController {
         return new ResponseEntity<>(newAlbum, httpHeaders, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/update/{id}")
     public ResponseEntity<Album> updateAlbum(@PathVariable Long id, @RequestBody Album updatedAlbum) {
-        Album updated = albumManagerService.updateAlbumById(id, updatedAlbum);
-        return new ResponseEntity<>(updated, HttpStatus.OK);
+        Album updated = albumManagerService.updateAlbum(id, updatedAlbum);
+        HttpHeaders httpHeaders1 = new HttpHeaders();
+        httpHeaders1.add("album", "/api/v1/album/update" + updated.getId().toString());
+        return new ResponseEntity<>(updated, httpHeaders1, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
