@@ -57,6 +57,8 @@ public class AlbumManagerController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+
+
     @GetMapping("/genre/{genre}")
     public ResponseEntity<List<Album> >getAllAlbumsByGenre(@PathVariable Genre genre) {
         List<Album> albums = albumManagerService.getAllAlbumsByGenre(genre);
@@ -64,11 +66,11 @@ public class AlbumManagerController {
     }
 
 
-
-
-
-
-
+    @GetMapping("/year/{year}")
+    public ResponseEntity<List<Album>> getAlbumsByYear(@PathVariable int year) {
+        List<Album> albums = albumManagerService.getByReleaseYear(year);
+        return new ResponseEntity<>(albums, HttpStatus.OK);
+    }
 
 //    @GetMapping("albumsinstock")
 //    public ResponseEntity<List<Album>> getAllAlbumsInStockInShop() {
@@ -76,6 +78,8 @@ public class AlbumManagerController {
 //        return new ResponseEntity<>(albums, HttpStatus.OK);
 //
 //    }
+
+
 
 }
 

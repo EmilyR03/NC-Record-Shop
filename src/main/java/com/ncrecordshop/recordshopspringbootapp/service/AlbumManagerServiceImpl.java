@@ -4,12 +4,10 @@ import com.ncrecordshop.recordshopspringbootapp.model.Album;
 import com.ncrecordshop.recordshopspringbootapp.model.Genre;
 import com.ncrecordshop.recordshopspringbootapp.repository.AlbumManagerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AlbumManagerServiceImpl implements AlbumManagerService {
@@ -66,11 +64,22 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
     public List<Album> getAllAlbumsByGenre(Genre genre){
        return albumManagerRepository.findAllAlbumsByGenre(genre);
     }
-
+//
 //    @Override
 //    public List<Album> getByQuantityInStock(int quantity) {
 //        return albumManagerRepository.findByQuantityInStockGreaterThan(quantity);
 //    }
+//
+@Override
+public List<Album> getByGenre(Genre genre) {
+        return albumManagerRepository.findByGenreIs(genre);
+    }
+//
+    @Override
+    public List<Album> getByReleaseYear(int year) {
+        return albumManagerRepository.findByReleaseYearIs(year);
+    }
+
 
 }
 
@@ -85,9 +94,6 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
 //        albumManagerRepository.deleteAlbumById(id);
 //    }
 //
-
-
-
 
 //    @Override
   //  public Album insertAlbum(Album album) {
