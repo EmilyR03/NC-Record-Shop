@@ -56,7 +56,7 @@ public class AlbumManagerController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Album> deleteAlbumById(@PathVariable Long id) {
         albumManagerService.deleteAlbumById(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.ACCEPTED);
     }
 
 
