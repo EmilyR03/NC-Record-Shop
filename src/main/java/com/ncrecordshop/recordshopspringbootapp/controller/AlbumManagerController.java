@@ -3,7 +3,7 @@ package com.ncrecordshop.recordshopspringbootapp.controller;
 import com.ncrecordshop.recordshopspringbootapp.model.Album;
 import com.ncrecordshop.recordshopspringbootapp.model.Genre;
 import com.ncrecordshop.recordshopspringbootapp.service.AlbumManagerService;
-import com.ncrecordshop.recordshopspringbootapp.service.ArtistManagerService;
+//import com.ncrecordshop.recordshopspringbootapp.service.ArtistManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -22,8 +22,8 @@ public class AlbumManagerController {
     @Autowired
     AlbumManagerService albumManagerService;
 
-    @Autowired
-    ArtistManagerService artistManagerService;
+//    @Autowired
+//    ArtistManagerService artistManagerService;
 
     @GetMapping("/allalbums")
     public ResponseEntity<List<Album>> getAllAlbums() {
