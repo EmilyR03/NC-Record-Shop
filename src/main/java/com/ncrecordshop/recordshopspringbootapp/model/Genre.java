@@ -4,8 +4,8 @@ public enum Genre {
 
         ROCK("Rock"),
         POP("Pop"),
-        Jazz ("Jazz"),
-        HipHop ("HipHop");
+        JAZZ("Jazz"),
+        HIP_HOP("HipHop");
 
         public final String description;
 

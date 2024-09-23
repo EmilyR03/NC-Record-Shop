@@ -12,9 +12,7 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
@@ -54,7 +52,7 @@ public class AlbumManagerControllerTests {
         List<Album> albumList = new ArrayList<>();
         albumList.add(new Album(1L, "Fall Out Boy", "From under the cork tree", 2005, Genre.ROCK));
         albumList.add(new Album(2L, "Chappell Roan", "The Rise and Fall of the Midwest Princess", 2023, Genre.POP));
-        albumList.add(new Album(3L, "Eminem", "Encore", 2004, Genre.HipHop));
+        albumList.add(new Album(3L, "Eminem", "Encore", 2004, Genre.HIP_HOP));
         albumList.add(new Album(4L, "Cher", "Believe", 1998, Genre.POP));
         albumList.add(new Album(5L, "Blink182", "Buddha", 1994, Genre.ROCK));
         albumList.add(new Album(6L, "Spice Girls", "Spice", 1996, Genre.POP));
@@ -70,7 +68,7 @@ public class AlbumManagerControllerTests {
         List<Album> albums = new ArrayList<>();
         albums.add(new Album(1L, "Fall Out Boy", "From under the cork tree", 2005, Genre.ROCK));
         albums.add(new Album(2L, "Chappell Roan", "The Rise and Fall of the Midwest Princess", 2023, Genre.POP));
-        albums.add(new Album(3L, "Eminem", "Encore", 2004, Genre.HipHop));
+        albums.add(new Album(3L, "Eminem", "Encore", 2004, Genre.HIP_HOP));
 
         when(mockAlbumManagerServiceImpl.getAllAlbums()).thenReturn(albums);
 

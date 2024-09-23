@@ -38,7 +38,7 @@ public class AlbumManagerServiceTests {
         List<Album> albums = new ArrayList<>();
         albums.add(new Album(1L, "Fall Out Boy", "From under the cork tree", 2005, Genre.ROCK));
         albums.add(new Album(2L, "Chappell Roan", "The Rise and Fall of the Midwest Princess", 2023, Genre.POP));
-        albums.add(new Album(3L, "Eminem", "Encore", 2004, Genre.HipHop));
+        albums.add(new Album(3L, "Eminem", "Encore", 2004, Genre.HIP_HOP));
 
         when(mockAlbumManagerRepository.findAll()).thenReturn(albums);
 
@@ -55,7 +55,7 @@ public class AlbumManagerServiceTests {
     @DisplayName("GET /album/{id}")
     void testGetAlbumById() throws Exception {
 
-        Album expectedResult = new Album(3L, "Eminem", "Encore", 2004, Genre.HipHop);
+        Album expectedResult = new Album(3L, "Eminem", "Encore", 2004, Genre.HIP_HOP);
 
         when(mockAlbumManagerRepository.findById(expectedResult.getId())).thenReturn(Optional.of(expectedResult));
 
@@ -66,7 +66,7 @@ public class AlbumManagerServiceTests {
     @Test
     public void testForDeleteAlbum() {
         Long testId = 3L;
-        Album testEminem = new Album(3L, "Eminem", "Encore", 2004, Genre.HipHop);
+        Album testEminem = new Album(3L, "Eminem", "Encore", 2004, Genre.HIP_HOP);
 
         when(mockAlbumManagerRepository.findById(testId)).thenReturn(Optional.of(testEminem));
         doNothing().when(mockAlbumManagerRepository).deleteById(testId);
