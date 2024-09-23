@@ -71,20 +71,8 @@ public class AlbumManagerController {
         return new ResponseEntity<>(albums, HttpStatus.OK);
     }
 
-    @GetMapping("/artistname")
-    public ResponseEntity<List<Album>> getAlbumsByArtist(@RequestParam String name) {
-        List<Album> albums = albumManagerService.findByArtistName(name);
-        return new ResponseEntity<>(albums, HttpStatus.OK);
-    }
+
 }
-
-
-//    @GetMapping("/artist")
-//    public ResponseEntity<List<Album>> getAlbumsByArtist(@RequestParam(value = "name") String name) {
-//        List<Album> album = albumManagerService.findByArtistNameContainingIgnoreCase(name);
-//        return new ResponseEntity<>(album, HttpStatus.OK);
-//        }
-
 
 //
 //    @DeleteMapping("/{id}")

@@ -21,7 +21,8 @@ public class Album {
 
    // @ManyToOne()
     @Column
-    String artistName;
+    String artist;
+
 
     @Column
     String albumName;

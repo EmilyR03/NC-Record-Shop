@@ -39,7 +39,7 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
         Album currentAlbum = getAlbumById(id);
 
         if (currentAlbum != null) {
-            currentAlbum.setArtistName(updatedAlbum.getArtistName());
+            currentAlbum.setArtist(updatedAlbum.getArtist());
             currentAlbum.setAlbumName(updatedAlbum.getAlbumName());
             currentAlbum.setReleaseYear(updatedAlbum.getReleaseYear());
             currentAlbum.setGenre(updatedAlbum.getGenre());
@@ -75,10 +75,6 @@ public List<Album> getByGenre(Genre genre) {
         return albumManagerRepository.findByReleaseYearIs(year);
     }
 
-    @Override
-    public List<Album> findByArtistName(String name) {
-        return albumManagerRepository.findByArtistName(name);
-    }
 
 }
 
