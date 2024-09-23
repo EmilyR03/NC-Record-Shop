@@ -2,7 +2,6 @@ package com.ncrecordshop.recordshopspringbootapp.service;
 
 import com.ncrecordshop.recordshopspringbootapp.model.Album;
 import com.ncrecordshop.recordshopspringbootapp.model.Genre;
-import org.springframework.data.crossstore.ChangeSetPersister;
 
 import java.util.List;
 
@@ -15,23 +14,11 @@ public interface AlbumManagerService {
     void deleteAlbumById(Long id);
     List<Album> getByReleaseYear(int year);
     List<Album> getAllAlbumsByGenre(Genre genre);
-//    List<Album> getByQuantityInStock(int quantity);
-
-
-    //
-    //    @Override
-    //    public List<Album> getByQuantityInStock(int quantity) {
-    //        return albumManagerRepository.findByQuantityInStockGreaterThan(quantity);
-    //    }
-    //
     List<Album> getByGenre(Genre genre);
+    List<Album> findByArtistName(String name);
 
-    //
+
 //    List<Album> getByGenre(Genre genre);
-//
-
-
-
     //void deleteAlbumById(Long id);
     //  void deleteAlbum(Long id);
     //   Album insertAlbum(Album album);

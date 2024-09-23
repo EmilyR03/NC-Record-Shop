@@ -12,9 +12,9 @@ import java.util.Optional;
 public interface AlbumManagerRepository extends CrudRepository<Album, Long> {
 
  List<Album> findAllAlbumsByGenre(Genre genre);
-// List<Album> findByQuantityInStockGreaterThan(int quantityInStock);
  List<Album> findByGenreIs(Genre genre);
  List<Album> findByReleaseYearIs(int year);
+ List<Album> findByArtistName(String name);
 //
 
  //   Album findAlbumById(Long albumId);

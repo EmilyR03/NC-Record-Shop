@@ -39,7 +39,7 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
         Album currentAlbum = getAlbumById(id);
 
         if (currentAlbum != null) {
-            currentAlbum.setArtist(updatedAlbum.getArtist());
+            currentAlbum.setArtistName(updatedAlbum.getArtistName());
             currentAlbum.setAlbumName(updatedAlbum.getAlbumName());
             currentAlbum.setReleaseYear(updatedAlbum.getReleaseYear());
             currentAlbum.setGenre(updatedAlbum.getGenre());
@@ -64,12 +64,7 @@ public class AlbumManagerServiceImpl implements AlbumManagerService {
     public List<Album> getAllAlbumsByGenre(Genre genre){
        return albumManagerRepository.findAllAlbumsByGenre(genre);
     }
-//
-//    @Override
-//    public List<Album> getByQuantityInStock(int quantity) {
-//        return albumManagerRepository.findByQuantityInStockGreaterThan(quantity);
-//    }
-//
+
 @Override
 public List<Album> getByGenre(Genre genre) {
         return albumManagerRepository.findByGenreIs(genre);
@@ -80,6 +75,10 @@ public List<Album> getByGenre(Genre genre) {
         return albumManagerRepository.findByReleaseYearIs(year);
     }
 
+    @Override
+    public List<Album> findByArtistName(String name) {
+        return albumManagerRepository.findByArtistName(name);
+    }
 
 }
 
